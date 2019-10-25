@@ -36,7 +36,7 @@ class ReadyList:
     def get_size(self):
         return self.size
 
-    def printList(self):
+    def print_list(self):
         temp = self.head
         while temp:
             print(temp.data)
