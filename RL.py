@@ -1,43 +1,20 @@
-class RLNode:
-    def __init__(self,data):
-        self.data = data
-        self.next = None
-
 class ReadyList:
-    def __init__(self):
-        self.head = None
-        self.tail = None
-        self.size = 0
+    def __init__(self,first_proc):
+        self.list = [first_proc]
 
+    def __str__(self):
+        return str(self.list)
 
-    def insert_front(self,PCB):
-        new_node = RLNode(PCB)
-        new_node.next = self.head
-        self.head = new_node
-        self.size += 1
+    def append(self, PCB):
+        self.list.append(PCB)
 
-        if self.size == 1:
-            self.tail = new_node
+    def remove(self, PCB):
+        self.list.remove(PCB)
 
+    def pop(self,i=-1):
+        item = self.list[i]
+        self.list.remove(item)
+        return item
 
-    def insert_end(self,PCB):
-        new_node = RLNode(PCB)
-        self.tail.next = new_node
-        self.tail = new_node
-        self.size += 1
-
-
-    def get_head(self):
-        return self.head
-
-    def get_tail(self):
-        return self.tail
-
-    def get_size(self):
-        return self.size
-
-    def print_list(self):
-        temp = self.head
-        while temp:
-            print(temp.data)
-            temp = temp.next
+    def items(self):
+        return self.list
