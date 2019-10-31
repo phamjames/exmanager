@@ -14,12 +14,12 @@ class Manager:
 
 
     def __str__(self):
-        str = "~~~~~ INITIALIZING MANAGER ~~~~~\n"
+        str = "~~~~~ MANAGER INFO ~~~~~\n"
         str += "PCB List = {}\n".format(self.PCB_list)
         str += "RCB List = {}\n".format(self.RCB_list)
         str += "wait list = {}\n".format(self.wait_list)
         str += "ready list = {}".format(self.ready_list)
-        str += "~~~~~ MANAGER INITIALIZED ~~~~~\n"
+        str += "\n"
         return str
 
 
