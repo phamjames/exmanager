@@ -25,18 +25,24 @@ class ReadyList:
         pcb_list.append(pcb)
 
     def get_highest_priority(self):
-        all_lists = self.high + self.med + self.low
+        all_lists = [self.high, self.med, self.low]
         for l in all_lists:
-            if not l:
+            if l != []:
                 return l[0]
+
 
     def get_all(self):
         return self.high + self.med + self.low
 
 
     def remove(self, pcb):
-        pcb_list = self.get_priority_list(pcb)
-        pcb_list.remove(pcb)
+        try:
+            pcb_list = self.get_priority_list(pcb)
+            pcb_list.remove(pcb)
+        except:
+            pass
+
+
 
     # def pop(self,i=-1):
     #     item = self.list[i]

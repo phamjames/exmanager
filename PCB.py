@@ -1,8 +1,11 @@
 from consts import *
+from RCB import *
+
 
 class PCB_List:
     def __init__(self,capacity):
-        self.list = [PCB(state=READY,priority=LOW,num=0)] + [PCB_FREE for x in range(capacity)]
+        new_PCB = PCB(state=READY,priority=LOW,num=0)
+        self.list = [new_PCB] + [PCB_FREE for x in range(capacity)]
         self.capacity = capacity
     def __getitem__(self,index):
         return self.list[index]
@@ -41,12 +44,16 @@ class PCB_List:
 
         for i in self.list:
             if i == PCB_FREE:
-                self.list[i] = pcb
+                self.list[self.list.index(i)] = pcb
+                pcb.num = self.list.index(pcb)
 
-        print("-1 pcb list full")
+                return
+
+        print("-1")
+        return False
 
     def free(self,pcb:"Must be a pcb"):
-        self.list[self.list.index(pcb)] = -1
+        self.list[self.list.index(pcb)] = PCB_FREE
 
 
     def items(self):
@@ -64,8 +71,9 @@ class PCB:
         self.children = []
         self.resources = []
 
-    def __str__(self):
-        return "PCB[{}]".format(self.num)
+    # def __str__(self):
+    #     return "PCB[{}]".format(self.num)
+
     def get_state(self):
         return self.state
 
@@ -87,10 +95,10 @@ class PCB:
         return self.children
 
     def get_child(self,j:"index of child"):
+        # print([c.num for c in self.children])
         for child in self.children:
             if child.num == j:
                 return child
-
         return False
 
     def remove_child(self,j:"index of child"):
@@ -104,8 +112,8 @@ class PCB:
         self.children.append(child)
 
     def get_resource(self,r:"resource type"):
-        if not self.resources:
-            print("resource don't exist buddy in this PCB -1")
+
+        if self.resources == []:
             return None
 
         for res in self.resources:
@@ -116,7 +124,7 @@ class PCB:
 
 
     def append_resource(self,rcb):
-        if not self.resources:
+        if self.resources == []:
             self.resources.append(rcb)
             return
 
@@ -134,9 +142,9 @@ class PCB:
 
         units_removed = 0
 
-        if not self.resources:
-            print("resource don't exist buddy in this PCB -1")
-            return units_removed
+        if self.resources == []:
+            print("-1")
+            return False
 
         for res in self.resources.copy():
             if res.type == r:
@@ -144,7 +152,5 @@ class PCB:
                 units_removed += k
                 if res.state == 0: # if there are no units of this resource
                     self.resources.remove(res) # remove from resource list
-                else:
-                    return -1
 
         return units_removed
