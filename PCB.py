@@ -102,9 +102,7 @@ class PCB:
         return False
 
     def remove_child(self,j:"index of child"):
-        children_copy = self.children
-
-        for child in children_copy:
+        for child in self.children.copy():
             if child.num == j:
                 self.children.remove(child)
 
@@ -142,9 +140,9 @@ class PCB:
 
         units_removed = 0
 
-        if self.resources == []:
-            print("-1")
-            return False
+        # if self.resources == []:
+        #     print("-1")
+        #     return False
 
         for res in self.resources.copy():
             if res.type == r:

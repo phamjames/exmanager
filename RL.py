@@ -36,11 +36,9 @@ class ReadyList:
 
 
     def remove(self, pcb):
-        try:
-            pcb_list = self.get_priority_list(pcb)
-            pcb_list.remove(pcb)
-        except:
-            pass
+        pcb_list = self.get_priority_list(pcb)
+        pcb_list.remove(pcb)
+
 
 
 

@@ -46,7 +46,6 @@ def main():
     for item in command_list:
         command = item[0]
         args = item[1:]
-        print(command)
 
         if command in func_dict.keys():
             if command == "in":

@@ -84,49 +84,37 @@ class Manager:
         #print("de called")
 
         # destroy child process j
-        destroyed = 0
         running_PCB = self._get_running_proc()
-
-
-        # run error check
-        # if not self._de_error_check(running_PCB, j):
-        #     print("-1 destroy error")
         child_proc = running_PCB.get_child(j)
 
+        # print("children of child", [c.num for c in child_proc.children])
 
-        if not child_proc:
-            print("-1")
-            return False
+        if child_proc:
 
-
-        for k in child_proc.children.copy():
-            child_proc.children.remove(k)
-            self.ready_list.remove(k)
-            self._PCB_list.free(k)
-
-            # destroyed += 1
-
-        running_PCB.remove_child(j) # remove child from PCB children
-        self.ready_list.remove(child_proc) # remove child from ready list
-
-        # remove child from wait list
-        for rcb in self._RCB_list:
-            for item in rcb.waitlist.copy():
-                wait_proc = item[0]
-                if wait_proc.num == j:
-                    rcb.waitlist.remove(item)
+            # for k in child_proc.children:
+            #     self.destroy(k.num)
 
 
 
-        # release resources of child and free PCB
-        for resource in child_proc.resources.copy():
-       
-            self.release_child(child_proc,resource.type,resource.state)
+            running_PCB.remove_child(j) # remove child from PCB children
+            self.ready_list.remove(child_proc) # remove child from ready list
 
+            # remove child from wait list
+            for rcb in self._RCB_list:
+                for item in rcb.waitlist.copy():
+                    wait_proc = item[0]
+                    if wait_proc.num == j:
+                        rcb.waitlist.remove(item)
+
+
+
+
+            # release resources of child and free PCB
+            for resource in child_proc.resources:
+                self.release_child(child_proc, resource.type, resource.state)
         self._PCB_list.free(child_proc)
 
         # print current running proc
-        print("ok...")
 
     def request(self,r:"resource type", k:"number of units requested"):
         #print("req called {} {}".format(r,k))
@@ -140,7 +128,7 @@ class Manager:
 
         # error check here
         if not self._req_error_check(running_PCB,r,k):
-            print("-1")
+            print("-1", end=' ')
             return False
 
         if available_units >= k:
@@ -163,7 +151,7 @@ class Manager:
 
         running_proc = child
         if not self._rel_error_check(running_proc, r, k):
-            print("-1")
+            print("-1", end=' ')
             return False
 
         units_freed = running_proc.remove_resource(r,k)
@@ -198,7 +186,7 @@ class Manager:
 
         running_proc = self._get_running_proc()
         if not self._rel_error_check(running_proc, r, k):
-            print("-1")
+            print("-1", end='')
             return False
 
         units_freed = running_proc.remove_resource(r,k)
@@ -241,7 +229,7 @@ class Manager:
 
         # swap first and last ind
         running_proc_list.append(running_proc_list.pop(0))
-        self._set_running_proc(running_proc_list[0])
+
         self.scheduler()
 
 
@@ -253,11 +241,6 @@ class Manager:
 
         # print("process {} running".format(self.ready_list.head.index))
         hp_proc = self.ready_list.get_highest_priority() # highest priority process "j"
-        cur_proc = self._get_running_proc() # current running process "i"
-
-        #print("hp_proc", hp_proc)
-
-        if hp_proc.priority > cur_proc.priority:
-            self._set_running_proc(hp_proc)
+        self._set_running_proc(hp_proc)
 
 
