@@ -30,30 +30,30 @@ class PCB_List:
         return len(self.list)
 
 
-    def index(self,x:"Must be a PCB"):
-        if not self._PCB_check(x):
+    def index(self,pcb:"Must be a PCB"):
+        if not self._PCB_check(pcb):
             return
-        return self.list.index(x)
+        return self.list.index(pcb)
 
-    def add(self,x:"Must be a PCB"):
-        if not self._PCB_check(x):
+    def add(self,pcb:"Must be a PCB"):
+        if not self._PCB_check(pcb):
             return
 
         for i in self.list:
             if i == PCB_FREE:
-                self.list[i] = x
+                self.list[i] = pcb
 
-        print("pcb list full")
+        print("-1 pcb list full")
 
-    def remove(self,j: "index or PCB"):
-        if type(j) == int:
-            del self.list[j]
+    def free(self,pcb:"Must be a pcb"):
+        self.list[self.list.index(pcb)] = -1
 
-        if isinstance(j,PCB):
-            self.list.remove(j)
 
     def items(self):
         return self.list
+
+
+
 
 class PCB:
     def __init__(self,state,priority,num,parent=None):
@@ -86,9 +86,65 @@ class PCB:
     def get_children(self):
         return self.children
 
+    def get_child(self,j:"index of child"):
+        for child in self.children:
+            if child.num == j:
+                return child
+
+        return False
+
+    def remove_child(self,j:"index of child"):
+        children_copy = self.children
+
+        for child in children_copy:
+            if child.num == j:
+                self.children.remove(child)
 
     def insert_child(self,child):
         self.children.append(child)
 
-    def get_resources(self):
-        return self.resources
+    def get_resource(self,r:"resource type"):
+        if not self.resources:
+            print("resource don't exist buddy in this PCB -1")
+            return None
+
+        for res in self.resources:
+            if res.type == r:
+                return res
+
+        return None
+
+
+    def append_resource(self,rcb):
+        if not self.resources:
+            self.resources.append(rcb)
+            return
+
+
+        for res in self.resources:
+            if res.type == rcb.type:
+                res.state += rcb.state
+                return
+
+        self.resources.append(rcb)
+
+    def remove_resource(self,r:"resource type",k:"units to remove"):
+        ''' This function will remove k units from the resource type
+            and return the number of k units removed. 0 if None'''
+
+        units_removed = 0
+
+        if not self.resources:
+            print("resource don't exist buddy in this PCB -1")
+            return units_removed
+
+        for res in self.resources.copy():
+            if res.type == r:
+                res.state -= k # remove k units from resource
+                units_removed += k
+                if res.state == 0: # if there are no units of this resource
+                    self.resources.remove(res) # remove from resource list
+                else:
+                    return -1
+
+        return units_removed
