@@ -114,6 +114,7 @@ class PCB:
 
     def get_resource(self,r:"resource type"):
 
+        print(self.resources)
         if self.resources == []:
             return None
 

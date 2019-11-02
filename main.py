@@ -69,15 +69,15 @@ def main():
                     print("command num {} -> {} ".format(command_num,command))
 
                 val = func_dict[command](manager) if args == [] else func_dict[command](manager,args)
-                print()
-                print("COMMAND CALLED:" ,command,args)
-                print("h: ",[c.num for c in manager.ready_list.high])
-                print("m: ",[c.num for c in manager.ready_list.med])
-                print("l: ",[c.num for c in manager.ready_list.low])
-                print()
-                print("current proc running ",end='')
+                # print()
+                # print("COMMAND CALLED:" ,command,args)
+                # print("h: ",[c.num for c in manager.ready_list.high])
+                # print("m: ",[c.num for c in manager.ready_list.med])
+                # print("l: ",[c.num for c in manager.ready_list.low])
+                # print()
+                # print("current proc running ",end='')
                 if val == True or val == None: manager.display_current_running()
-                print("resource list of current = ", [(r.type,r.state) for r in manager._get_running_proc().resources])
+                # print("resource list of current = ", [(r.type,r.state) for r in manager._get_running_proc().resources])
 
                 if _debug:
                     print("rl ",[x.num for x in manager.ready_list.get_all()])
