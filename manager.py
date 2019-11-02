@@ -83,61 +83,20 @@ class Manager:
 
 
     def destroy(self, j: "index child PCB",op:"j if recursive call"=None):
-        # #print("de called")
-        # # destroy child process j
-        # running_PCB = self._get_running_proc() if op is None else op
-        # child_proc = running_PCB.get_child(j)
-        # # print("run ",running_PCB.num)
-        # # print("children",[c.num for c in running_PCB.children])
-        # # print("j ",j)
-        # # print("child ",child_proc.num)
-        # # print("children of child ",[c.num for c in child_proc.children])
-        #
-        # # print("children of child", [c.num for c in child_proc.children])
-        #
-        # if child_proc:
-        #
-        #     for k in child_proc.children:
-        #         self.destroy(k.num,child_proc)
-        #
-        #     running_PCB.remove_child(j) # remove child from PCB children
-        #
-        #     try:
-        #         self.ready_list.remove(child_proc) # remove child from ready list
-        #
-        #     except ValueError:
-        #         # remove child from wait list
-        #         print("OK")
-        #         for rcb in self._RCB_list:
-        #             for item in rcb.waitlist.copy():
-        #                 wait_proc = item[0]
-        #                 if wait_proc == j:
-        #                     self.release(rcb.type,rcb.state,child_proc)
-        #
-        #         # release resources of child and free PCB
-        #
-        #         for resource in child_proc.resources:
-        #             # release resources from child
-        #             self.release(resource.type, resource.state)
-        #
-        #
-        #     self._PCB_list.free(child_proc)
+
         proc = self._PCB_list.get(j)
         if not proc:
             print("-1",end=' ')
             return proc
 
-
         for resource in proc.resources.copy():
-            # type = resource.type
-            # freed_units = resource.state
-            # self._RCB_list[type].state += freed_units
-            self.release(resource.type,resource.state,proc)
+            type = resource.type
+            freed_units = resource.state
+            self._RCB_list[type].state += freed_units
+            # self.release(resource.type,resource.state,proc)
 
         for k in proc.children.copy():
             self.destroy(k.num)
-
-
 
 
 
@@ -225,7 +184,7 @@ class Manager:
                 if available_units >= units_requested:
                     self.ready_list.append(process)
                     process.append_resource(RCB(r,units_requested))
-                    available_units -= units_requested
+                    resource.state -= units_requested
                     resource.waitlist.remove(item)
         self.scheduler()
 

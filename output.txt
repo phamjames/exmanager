@@ -1,35 +1,17 @@
 
-0 1 1 []
-1 2 3 []
-2 1 [<RCB.RCB object at 0x10b393dd8>]
-1 1 2 4 []
-4 1 [<RCB.RCB object at 0x10b393dd8>, <RCB.RCB object at 0x10b393e48>]
-2 4 4 4 2 5 []
-5 [<RCB.RCB object at 0x10b393f60>]
-6 4 2 6 4 [<RCB.RCB object at 0x10b393eb8>]
-4 2 6 1 [<RCB.RCB object at 0x10b393eb8>]
-[<RCB.RCB object at 0x10b393f60>, <RCB.RCB object at 0x10b399080>]
-[<RCB.RCB object at 0x10b399080>]
-1 2 1 1 2 4 1 [<RCB.RCB object at 0x10b393dd8>, <RCB.RCB object at 0x10b393e48>, <RCB.RCB object at 0x10b393fd0>]
-[<RCB.RCB object at 0x10b393dd8>, <RCB.RCB object at 0x10b393e48>, <RCB.RCB object at 0x10b393fd0>]
-1 [<RCB.RCB object at 0x10b393dd8>, <RCB.RCB object at 0x10b393e48>, <RCB.RCB object at 0x10b393fd0>]
-3 3 [<RCB.RCB object at 0x10b393dd8>]
-3 [<RCB.RCB object at 0x10b393dd8>, <RCB.RCB object at 0x10b393eb8>]
-3 3 [<RCB.RCB object at 0x10b393dd8>, <RCB.RCB object at 0x10b393eb8>, <RCB.RCB object at 0x10b393f98>]
-[<RCB.RCB object at 0x10b393dd8>, <RCB.RCB object at 0x10b393eb8>, <RCB.RCB object at 0x10b393f98>]
-3 [<RCB.RCB object at 0x10b393dd8>, <RCB.RCB object at 0x10b393eb8>, <RCB.RCB object at 0x10b393f98>]
-[<RCB.RCB object at 0x10b393dd8>, <RCB.RCB object at 0x10b393eb8>, <RCB.RCB object at 0x10b393f98>]
--1 [<RCB.RCB object at 0x10b393dd8>, <RCB.RCB object at 0x10b393eb8>, <RCB.RCB object at 0x10b393f98>]
-[<RCB.RCB object at 0x10b393dd8>, <RCB.RCB object at 0x10b393eb8>, <RCB.RCB object at 0x10b393f98>]
--1 [<RCB.RCB object at 0x10b393dd8>, <RCB.RCB object at 0x10b393eb8>, <RCB.RCB object at 0x10b393f98>]
-1 [<RCB.RCB object at 0x10b393e48>, <RCB.RCB object at 0x10b393fd0>]
-[<RCB.RCB object at 0x10b393e48>, <RCB.RCB object at 0x10b393fd0>]
--1 -1 1 [<RCB.RCB object at 0x10b393e48>, <RCB.RCB object at 0x10b393fd0>]
-2 []
-4 []
-4 [<RCB.RCB object at 0x10b393f60>]
-5 5 6 []
-7 7 5 []
-8 8 7 []
-9 9 8 []
-10 
+0 1 1 1 2 2 2 2 1 6 2 2 2 2 1 2 1 
+0 1 1 1 2 2 2 2 1 1 1 
+0 1 1 1 2 2 2 2 2 1 1 6 2 2 1 1 6 2 1 
+0 1 1 1 2 2 1 1 1 2 2 1 
+0 1 1 1 2 2 2 2 2 1 6 2 2 2 1 1 2 6 1 
+0 1 1 1 2 2 2 2 2 1 1 6 2 6 3 4 5 3 
+0 1 1 1 2 2 3 3 1 2 1 1 1 1 
+0 1 1 1 2 2 2 2 3 1 6 6 2 3 1 1 1 1 
+0 1 1 1 2 2 2 2 2 1 1 6 2 2 1 6 2 2 6 1 
+0 1 1 1 2 2 3 1 2 2 2 3 1 2 
+0 1 1 -1 
+0 1 -1 
+0 1 1 -1
+0 1 1 -1
+0 1 -1 
+0 1 1 -1

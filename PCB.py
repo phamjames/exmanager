@@ -15,7 +15,7 @@ class PCB_List:
 
     def _PCB_check(self,x):
         if not isinstance(x,PCB):
-            print("add param must be PCB")
+            # print("add param must be PCB")
             return False
         return True
 
@@ -84,7 +84,7 @@ class PCB:
         # check for 0 or 1
         if newState != READY or newState != BLOCKED:
             #raise error here
-            print("error")
+            # print("error")
             return
         self.state = newState
 
@@ -114,7 +114,6 @@ class PCB:
 
     def get_resource(self,r:"resource type"):
 
-        print(self.resources)
         if self.resources == []:
             return None
 
