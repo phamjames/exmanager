@@ -11,7 +11,14 @@ def cr(man,*args):
 def de(man, *args):
     args_list = args[0]
     i = int(args_list[0])
-    return man.destroy(i)
+    found = 0
+    for c in man._get_running_proc().children:
+
+        if c.num == i:
+            found = 1
+    if found != 1:
+        print("-1", end=' ')
+    return man.destroy(i) if found == 1 else False
 
 def rq(man, *args):
     args_list = args[0]
@@ -40,6 +47,7 @@ def parse_commands(file_name):
 func_dict = {"cr": cr, "de":de, "rq": rq, "rl":rl, "to":to, "in":init}
 
 def main():
+    sys.stdout = open('output.txt', 'wt')
     command_list = parse_commands(sys.argv[1])
     manager = None
     command_num = 1
@@ -61,7 +69,16 @@ def main():
                     print("command num {} -> {} ".format(command_num,command))
 
                 val = func_dict[command](manager) if args == [] else func_dict[command](manager,args)
+                print()
+                print("COMMAND CALLED:" ,command,args)
+                print("h: ",[c.num for c in manager.ready_list.high])
+                print("m: ",[c.num for c in manager.ready_list.med])
+                print("l: ",[c.num for c in manager.ready_list.low])
+                print()
+                print("current proc running ",end='')
                 if val == True or val == None: manager.display_current_running()
+                print("resource list of current = ", [(r.type,r.state) for r in manager._get_running_proc().resources])
+
                 if _debug:
                     print("rl ",[x.num for x in manager.ready_list.get_all()])
                     print("pl ",[(x.num,x.priority) for x in manager._PCB_list if x != -1])

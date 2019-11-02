@@ -36,8 +36,13 @@ class ReadyList:
 
 
     def remove(self, pcb):
-        pcb_list = self.get_priority_list(pcb)
-        pcb_list.remove(pcb)
+        pri = pcb.priority
+        if pri == HIGH:
+            self.high.remove(pcb)
+        elif pri == MED:
+            self.med.remove(pcb)
+        else:
+            self.low.remove(pcb)
 
 
 

@@ -1,107 +1,456 @@
 
-// CREATION TESTS
+0 
+COMMAND CALLED: cr ['1']
+h:  []
+m:  [1]
+l:  [0]
 
-// TEST 1: Init
+current proc running 1 resource list of current =  []
 
- 0
-// TEST 2: Timeout, only process 0
+COMMAND CALLED: cr ['1']
+h:  []
+m:  [1, 2]
+l:  [0]
 
- 0 0
-// TEST 3: Create priority 0 process
+current proc running 1 resource list of current =  []
 
- 0 -1
-// TEST 4: Create priority 1 process
+COMMAND CALLED: rq ['2', '1']
+h:  []
+m:  [1, 2]
+l:  [0]
 
- 0 1
-// TEST 5: Timeout, priority 1 process single process
+current proc running 1 resource list of current =  [(2, 1)]
 
- 0 1 1
-// TEST 6: Create two priority 1 processes (second is child of first)
+COMMAND CALLED: to []
+h:  []
+m:  [2, 1]
+l:  [0]
 
- 0 1 1
-// TEST 7: Timeout test, priority 1 processes
+current proc running 2 resource list of current =  []
 
- 0 1 1 2 1
-// TEST 8: Create priority 2 process
+COMMAND CALLED: cr ['2']
+h:  [3]
+m:  [2, 1]
+l:  [0]
 
- 0 1
-// TEST 9: Timeout test, priority 2 processes
+current proc running 3 resource list of current =  []
 
- 0 1 1 2 1
-// TEST 10: Create pri 1 and pri 2 process
+COMMAND CALLED: rq ['2', '2']
+h:  []
+m:  [2, 1]
+l:  [0]
 
- 0 1 2 2
-// TEST 11: Create pri 2 and pri 1 process
+current proc running 2 resource list of current =  []
 
- 0 1 1 1
-// TEST 12: Create out of range priorities
+COMMAND CALLED: to []
+h:  []
+m:  [1, 2]
+l:  [0]
 
- 0 -1
- 0 -1
-// TEST 13: Create max num (17) processes
+current proc running 1 resource list of current =  [(2, 1)]
 
- 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 -1
-// RESOURCE TESTS
+COMMAND CALLED: rq ['1', '1']
+h:  []
+m:  [1, 2]
+l:  [0]
 
-// REQUESTS
+current proc running 1 resource list of current =  [(2, 1), (1, 1)]
 
-// TEST 14: Process 0 requests resource
+COMMAND CALLED: cr ['1']
+h:  []
+m:  [1, 2, 4]
+l:  [0]
 
- 0 -1
-// TEST 15: Out of range resource request
+current proc running 1 resource list of current =  [(2, 1), (1, 1)]
 
- 0 1 -1
- 0 1 -1
-// TEST 16: Request resource 0
+COMMAND CALLED: to []
+h:  []
+m:  [2, 4, 1]
+l:  [0]
 
- 0 1 1
-// TEST 17: Requesting more than inventory
+current proc running 2 resource list of current =  []
 
- 0 1 1 -1
-// TEST 18: Blocking test same priority
+COMMAND CALLED: to []
+h:  []
+m:  [4, 1, 2]
+l:  [0]
 
- 0 1 1 1 2 1
-// TEST 19: Blocking test higher priority
+current proc running 4 resource list of current =  []
 
- 0 1 1 2 1
-// TEST 20: Correct inventory
+COMMAND CALLED: rq ['3', '3']
+h:  []
+m:  [4, 1, 2]
+l:  [0]
 
- 0 1 1 1 1 1 -1
-// RELEASE TESTS
+current proc running 4 resource list of current =  [(3, 3)]
 
-// TEST 21: Releasing unowned resource
+COMMAND CALLED: to []
+h:  []
+m:  [1, 2, 4]
+l:  [0]
 
- 0 1 -1
-// TEST 22: Releasing owned resource
+current proc running 1 resource list of current =  [(2, 1), (1, 1)]
 
- 0 1 1 1
-// TEST 23: Releasing too many resources
+COMMAND CALLED: rq ['3', '1']
+h:  []
+m:  [2, 4]
+l:  [0]
 
- 0 1 1 -1
-// TEST 24: Release and unblock
+current proc running 2 resource list of current =  []
 
- 0 1 1 2 1 2
-// TEST 25: Out of range release
+COMMAND CALLED: to []
+h:  []
+m:  [4, 2]
+l:  [0]
 
- 0 1 -1
- 0 1 -1
-// DESTRUCTION TESTS
+current proc running 4 resource list of current =  [(3, 3)]
 
-// TEST 26: Child Destruction
+COMMAND CALLED: cr ['1']
+h:  []
+m:  [4, 2, 5]
+l:  [0]
 
- 0 1 1 1 1
-// TEST 27: Current process doesnt own child
+current proc running 4 resource list of current =  [(3, 3)]
 
- 0 1 1 2 2 1 -1
-// TEST 28: Destroying child destroys decendents
+COMMAND CALLED: cr ['1']
+h:  []
+m:  [4, 2, 5, 6]
+l:  [0]
 
- 0 1 1 2 2 1 3 2 1 1 1
-// TEST 29: Destroy process 0 (self)
+current proc running 4 resource list of current =  [(3, 3)]
 
- 0 -1
-// TEST 30: Destroy with resources
+COMMAND CALLED: to []
+h:  []
+m:  [2, 5, 6, 4]
+l:  [0]
 
- 0 1 1 2 2 2 3 2 1 1 1
-// TEST 31: Reallocation of PCB slots
+current proc running 2 resource list of current =  []
 
- 0 1 1 2 1 1 1 1 2
+COMMAND CALLED: to []
+h:  []
+m:  [5, 6, 4, 2]
+l:  [0]
+
+current proc running 5 resource list of current =  []
+
+COMMAND CALLED: rq ['0', '1']
+h:  []
+m:  [5, 6, 4, 2]
+l:  [0]
+
+current proc running 5 resource list of current =  [(0, 1)]
+
+COMMAND CALLED: rq ['3', '2']
+h:  []
+m:  [6, 4, 2]
+l:  [0]
+
+current proc running 6 resource list of current =  []
+
+COMMAND CALLED: to []
+h:  []
+m:  [4, 2, 6]
+l:  [0]
+
+current proc running 4 resource list of current =  [(3, 3)]
+
+COMMAND CALLED: to []
+h:  []
+m:  [2, 6, 4]
+l:  [0]
+
+current proc running 2 resource list of current =  []
+
+COMMAND CALLED: to []
+h:  []
+m:  [6, 4, 2]
+l:  [0]
+
+current proc running 6 resource list of current =  []
+
+COMMAND CALLED: to []
+h:  []
+m:  [4, 2, 6]
+l:  [0]
+
+current proc running 4 resource list of current =  [(3, 3)]
+
+COMMAND CALLED: rl ['3', '1']
+h:  []
+m:  [4, 2, 6, 1]
+l:  [0]
+
+current proc running 4 resource list of current =  [(3, 2)]
+
+COMMAND CALLED: to []
+h:  []
+m:  [2, 6, 1, 4]
+l:  [0]
+
+current proc running 2 resource list of current =  []
+
+COMMAND CALLED: to []
+h:  []
+m:  [6, 1, 4, 2]
+l:  [0]
+
+current proc running 6 resource list of current =  []
+
+COMMAND CALLED: to []
+h:  []
+m:  [1, 4, 2, 6]
+l:  [0]
+
+current proc running 1 resource list of current =  [(2, 1), (1, 1), (3, 1)]
+
+COMMAND CALLED: de ['4']
+h:  []
+m:  [1, 2]
+l:  [0]
+
+current proc running 1 resource list of current =  [(2, 1), (1, 1), (3, 1)]
+
+COMMAND CALLED: to []
+h:  []
+m:  [2, 1]
+l:  [0]
+
+current proc running 2 resource list of current =  []
+
+COMMAND CALLED: to []
+h:  []
+m:  [1, 2]
+l:  [0]
+
+current proc running 1 resource list of current =  [(2, 1), (1, 1), (3, 1)]
+
+COMMAND CALLED: cr ['1']
+h:  []
+m:  [1, 2, 4]
+l:  [0]
+
+current proc running 1 resource list of current =  [(2, 1), (1, 1), (3, 1)]
+
+COMMAND CALLED: to []
+h:  []
+m:  [2, 4, 1]
+l:  [0]
+
+current proc running 2 resource list of current =  []
+
+COMMAND CALLED: to []
+h:  []
+m:  [4, 1, 2]
+l:  [0]
+
+current proc running 4 resource list of current =  []
+
+COMMAND CALLED: to []
+h:  []
+m:  [1, 2, 4]
+l:  [0]
+
+current proc running 1 resource list of current =  [(2, 1), (1, 1), (3, 1)]
+
+COMMAND CALLED: rq ['2', '1']
+h:  []
+m:  [1, 2, 4]
+l:  [0]
+
+current proc running 1 resource list of current =  [(2, 2), (1, 1), (3, 1)]
+
+COMMAND CALLED: rl ['2', '2']
+h:  [3]
+m:  [1, 2, 4]
+l:  [0]
+
+current proc running 3 resource list of current =  [(2, 2)]
+
+COMMAND CALLED: cr ['1']
+h:  [3]
+m:  [1, 2, 4, 5]
+l:  [0]
+
+current proc running 3 resource list of current =  [(2, 2)]
+
+COMMAND CALLED: rq ['3', '2']
+h:  [3]
+m:  [1, 2, 4, 5]
+l:  [0]
+
+current proc running 3 resource list of current =  [(2, 2), (3, 2)]
+
+COMMAND CALLED: rq ['0', '1']
+h:  [3]
+m:  [1, 2, 4, 5]
+l:  [0]
+
+current proc running 3 resource list of current =  [(2, 2), (3, 2), (0, 1)]
+
+COMMAND CALLED: to []
+h:  [3]
+m:  [1, 2, 4, 5]
+l:  [0]
+
+current proc running 3 resource list of current =  [(2, 2), (3, 2), (0, 1)]
+
+COMMAND CALLED: rq ['3', '1']
+h:  [3]
+m:  [1, 2, 4, 5]
+l:  [0]
+
+current proc running 3 resource list of current =  [(2, 2), (3, 3), (0, 1)]
+-1 
+COMMAND CALLED: rq ['2', '2']
+h:  [3]
+m:  [1, 2, 4, 5]
+l:  [0]
+
+current proc running resource list of current =  [(2, 2), (3, 3), (0, 1)]
+-1 
+COMMAND CALLED: rq ['3', '1']
+h:  [3]
+m:  [1, 2, 4, 5]
+l:  [0]
+
+current proc running resource list of current =  [(2, 2), (3, 3), (0, 1)]
+
+COMMAND CALLED: rq ['1', '1']
+h:  []
+m:  [1, 2, 4, 5]
+l:  [0]
+
+current proc running 1 resource list of current =  [(1, 1), (3, 1)]
+-1 
+COMMAND CALLED: rq ['1', '1']
+h:  []
+m:  [1, 2, 4, 5]
+l:  [0]
+
+current proc running resource list of current =  [(1, 1), (3, 1)]
+-1 
+COMMAND CALLED: de ['1']
+h:  []
+m:  [1, 2, 4, 5]
+l:  [0]
+
+current proc running resource list of current =  [(1, 1), (3, 1)]
+
+COMMAND CALLED: cr ['1']
+h:  []
+m:  [1, 2, 4, 5, 6]
+l:  [0]
+
+current proc running 1 resource list of current =  [(1, 1), (3, 1)]
+
+COMMAND CALLED: rq ['0', '1']
+h:  []
+m:  [2, 4, 5, 6]
+l:  [0]
+
+current proc running 2 resource list of current =  []
+
+COMMAND CALLED: rq ['1', '1']
+h:  []
+m:  [4, 5, 6]
+l:  [0]
+
+current proc running 4 resource list of current =  []
+
+COMMAND CALLED: rq ['2', '2']
+h:  []
+m:  [4, 5, 6]
+l:  [0]
+
+current proc running 4 resource list of current =  [(2, 2)]
+
+COMMAND CALLED: rq ['3', '3']
+h:  []
+m:  [5, 6]
+l:  [0]
+
+current proc running 5 resource list of current =  []
+
+COMMAND CALLED: cr ['1']
+h:  []
+m:  [5, 6, 7]
+l:  [0]
+
+current proc running 5 resource list of current =  []
+
+COMMAND CALLED: to []
+h:  []
+m:  [6, 7, 5]
+l:  [0]
+
+current proc running 6 resource list of current =  []
+
+COMMAND CALLED: rq ['0', '1']
+h:  []
+m:  [7, 5]
+l:  [0]
+
+current proc running 7 resource list of current =  []
+
+COMMAND CALLED: cr ['1']
+h:  []
+m:  [7, 5, 8]
+l:  [0]
+
+current proc running 7 resource list of current =  []
+
+COMMAND CALLED: to []
+h:  []
+m:  [5, 8, 7]
+l:  [0]
+
+current proc running 5 resource list of current =  []
+
+COMMAND CALLED: rq ['1', '1']
+h:  []
+m:  [8, 7]
+l:  [0]
+
+current proc running 8 resource list of current =  []
+
+COMMAND CALLED: cr ['1']
+h:  []
+m:  [8, 7, 9]
+l:  [0]
+
+current proc running 8 resource list of current =  []
+
+COMMAND CALLED: to []
+h:  []
+m:  [7, 9, 8]
+l:  [0]
+
+current proc running 7 resource list of current =  []
+
+COMMAND CALLED: rq ['2', '2']
+h:  []
+m:  [9, 8]
+l:  [0]
+
+current proc running 9 resource list of current =  []
+
+COMMAND CALLED: cr ['1']
+h:  []
+m:  [9, 8, 10]
+l:  [0]
+
+current proc running 9 resource list of current =  []
+
+COMMAND CALLED: to []
+h:  []
+m:  [8, 10, 9]
+l:  [0]
+
+current proc running 8 resource list of current =  []
+
+COMMAND CALLED: rq ['3', '3']
+h:  []
+m:  [10, 9]
+l:  [0]
+
+current proc running 10 resource list of current =  []

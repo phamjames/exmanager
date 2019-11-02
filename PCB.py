@@ -52,6 +52,9 @@ class PCB_List:
         print("-1")
         return False
 
+    def get(self,ind:"pcb index"):
+        return self.list[ind] if self.list[ind] != PCB_FREE else False
+
     def free(self,pcb:"Must be a pcb"):
         self.list[self.list.index(pcb)] = PCB_FREE
 
